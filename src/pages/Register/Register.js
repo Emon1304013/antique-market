@@ -8,8 +8,9 @@ import Spinner from "../../components/Spinner/Spinner";
 import { useTitle } from "../../hooks/useTitle";
 
 const Register = () => {
-    useTitle('Register')
-    const {createUser,updateUserProfile,loading,googleSignIn} = useContext(AuthContext)
+  useTitle("Register");
+  const { createUser, updateUserProfile, loading, googleSignIn } =
+    useContext(AuthContext);
   const {
     register,
     formState: { errors },
@@ -20,38 +21,34 @@ const Register = () => {
 
   const handleRegister = (data) => {
     console.log(data);
-    createUser(data.email,data.password)
-    .then(result => {
+    createUser(data.email, data.password)
+      .then((result) => {
         const user = result.user;
         console.log(user);
         // toast.success("User created Successfully")
-        Swal.fire('User created Successfully')
+        Swal.fire("User created Successfully");
 
         updateUserProfile(data.name)
-        .then(()=>{
-    
-        })
-        .catch(err => console.log(err.message))
-    })
-    .catch(err => {
+          .then(() => {})
+          .catch((err) => console.log(err.message));
+      })
+      .catch((err) => {
         console.log(err.message);
-    })
+      });
   };
 
   const handleGoogleSignin = () => {
-    googleSignIn().then((result) => {
-      console.log(result);
-    })
-    .catch(error => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
         console.log(error);
-    })
+      });
   };
 
-
   if (loading) {
-    return (
-      <Spinner></Spinner>
-    );
+    return <Spinner></Spinner>;
   }
   return (
     <section className="my-20">
@@ -65,12 +62,7 @@ const Register = () => {
             />
           </div>
           <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-
-
-            <form
-              className="space-y-4"
-              onSubmit={handleSubmit(handleRegister)}
-            >
+            <form className="space-y-4" onSubmit={handleSubmit(handleRegister)}>
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -132,30 +124,36 @@ const Register = () => {
                   <span className="label-text text-white">Forget password</span>
                 </label>
               </div>
-              <button type="submit" className="btn btn-secondary w-full text-white">
+              <button
+                type="submit"
+                className="btn btn-secondary w-full text-white"
+              >
                 Register
               </button>
             </form>
             <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-                <p className="text-center font-semibold mx-4 mb-0">Or</p>
-              </div>
+              <p className="text-center font-semibold mx-4 mb-0">Or</p>
+            </div>
 
-              <div className="flex flex-row items-center justify-center lg:justify-start mb-6">
-                <Link onClick={handleGoogleSignin}>
-                  <button className="btn btn-outline hover:bg-white hover:text-black">
-                    Sign up with
-                    <img className="h-8 w-8 ml-2" src={logo} alt="" />
-                  </button>
-                </Link>
-              </div>
+            <div className="mb-6 w-full">
+              <Link onClick={handleGoogleSignin}>
+                <button
+                  type="submit"
+                  className="w-full block bg-green-500 text-white font-semibold rounded-lg
+              px-4 py-3 mt-6"
+                >
+                  Sign up with Google
+                </button>
+              </Link>
+            </div>
             <p className="text-md font-semibold mt-2 pt-1 mb-0">
               Already Have an account?
-              <a
-                href="#!"
+              <Link
+               to='/login'
                 className="text-green-600 hover:text-green-700 focus:text-green-700 transition duration-200 ease-in-out"
               >
                 Login
-              </a>
+              </Link>
             </p>
           </div>
         </div>
