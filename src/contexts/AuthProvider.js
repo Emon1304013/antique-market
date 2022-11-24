@@ -37,6 +37,7 @@ const googleSignIn = () => {
 
 const signOutUser = () => {
     setLoading(true)
+    localStorage.removeItem('antique-token')
     return signOut(auth)
 }
 

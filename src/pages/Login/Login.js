@@ -5,6 +5,7 @@ import { useTitle } from "../../hooks/useTitle";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner/Spinner";
+import { setAuthToken } from "../../api/auth";
 
 const Login = () => {
   const { user, signInUser, googleSignIn,loading,setLoading } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const Login = () => {
       const user = result.user;
       console.log(user);
       Swal.fire("User Signed in succefully")
+      setAuthToken(user);
       navigate('/')
       
     })
@@ -37,6 +39,7 @@ const Login = () => {
     googleSignIn().then((result) => {
         console.log(result);
         Swal.fire("User logged in successfully")
+        setAuthToken(result.user)
         navigate('/')
       })
       .catch(error => {

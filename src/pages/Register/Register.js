@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner/Spinner";
 import { useTitle } from "../../hooks/useTitle";
+import { setAuthToken } from "../../api/auth";
 
 const Register = () => {
   useTitle("Register");
@@ -27,9 +28,12 @@ const Register = () => {
         console.log(user);
         // toast.success("User created Successfully")
         Swal.fire("User created Successfully");
+        setAuthToken(result.user)
 
         updateUserProfile(data.name)
-          .then(() => {})
+          .then(() => {
+
+          })
           .catch((err) => console.log(err.message));
       })
       .catch((err) => {
@@ -41,6 +45,7 @@ const Register = () => {
     googleSignIn()
       .then((result) => {
         console.log(result);
+        setAuthToken(result.user)
       })
       .catch((error) => {
         console.log(error);
