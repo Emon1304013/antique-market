@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/google-icon.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -7,12 +7,14 @@ import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner/Spinner";
 
 const Register = () => {
-    const {createUser,updateUserProfile,loading} = useContext(AuthContext)
+    const {createUser,updateUserProfile,loading,googleSignIn} = useContext(AuthContext)
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const navigate = useNavigate();
 
   const handleRegister = (data) => {
     console.log(data);
@@ -33,7 +35,16 @@ const Register = () => {
         console.log(err.message);
     })
   };
-  
+
+  const handleGoogleSignin = () => {
+    googleSignIn().then((result) => {
+      console.log(result);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+  };
+
 
   if (loading) {
     return (
@@ -128,7 +139,7 @@ const Register = () => {
               </div>
 
               <div className="flex flex-row items-center justify-center lg:justify-start mb-6">
-                <Link>
+                <Link onClick={handleGoogleSignin}>
                   <button className="btn btn-outline hover:bg-white hover:text-black">
                     Sign up with
                     <img className="h-8 w-8 ml-2" src={logo} alt="" />
