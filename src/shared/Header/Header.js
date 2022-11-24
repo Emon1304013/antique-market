@@ -7,8 +7,8 @@ const Header = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1 items-center gap-2">
-        <img src={logo} alt="" className="w-12 h-12 rounded" /> 
-        <Link to='/' className="font-extrabold text-transparent text-2xl lg:text-3xl bg-clip-text bg-gradient-to-r from-green-400 to-gray-700">ANTIQUE MARKET</Link>
+        <img src={logo} alt="" className="w-8 h-8 lg:w-12 lg:h-12 rounded" /> 
+        <Link to='/' className="font-extrabold text-transparent text-xl lg:text-3xl bg-clip-text bg-gradient-to-r from-green-400 to-gray-700">ANTIQUE MARKET</Link>
       </div>
       <div className="flex-none gap-2">
         {/* <PrimaryButton>Register</PrimaryButton> */}
