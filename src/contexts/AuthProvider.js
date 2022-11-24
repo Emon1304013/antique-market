@@ -56,7 +56,8 @@ const AuthInfo = {
     signInUser,
     googleSignIn,
     signOutUser,
-    loading
+    loading,
+    setLoading,
 
 }
 

@@ -10,7 +10,7 @@ import { setAuthToken } from "../../api/auth";
 
 const Register = () => {
   useTitle("Register");
-  const { createUser, updateUserProfile, loading, googleSignIn } =
+  const { createUser, updateUserProfile, loading, googleSignIn,setLoading } =
     useContext(AuthContext);
   const {
     register,
@@ -26,18 +26,22 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const currentUser = {
+          email: user?.email,
+          userType: data.userType,
+      }
         // toast.success("User created Successfully")
         Swal.fire("User created Successfully");
-        setAuthToken(result.user)
+        setAuthToken(currentUser);
 
         updateUserProfile(data.name)
-          .then(() => {
-
-          })
+          .then(() => {})
           .catch((err) => console.log(err.message));
+          navigate('/')
       })
       .catch((err) => {
         console.log(err.message);
+        setLoading(false)
       });
   };
 
@@ -45,7 +49,12 @@ const Register = () => {
     googleSignIn()
       .then((result) => {
         console.log(result);
-        setAuthToken(result.user)
+        const user = result.user;
+        const currentUser = {
+                email: user?.email,
+                userType:"buyer",
+            }
+        setAuthToken(currentUser);
       })
       .catch((error) => {
         console.log(error);
@@ -105,6 +114,28 @@ const Register = () => {
 
               <div className="form-control w-full">
                 <label className="label">
+                  <span className="label-text">User type</span>
+                </label>
+                <select
+                  {...register("userType", { required: true })}
+                  className="select select-bordered w-full"
+                >
+                  <option disabled defaultValue>
+                    User Type
+                  </option>
+                  <option value="buyer">Buyer</option>
+                  <option value="Seller">seller</option>
+                </select>
+
+                {errors.userType?.type === "required" && (
+                  <p role="alert" className="text-red-600 font-bold pt-2">
+                    Category is required
+                  </p>
+                )}
+              </div>
+
+              <div className="form-control w-full">
+                <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
@@ -154,7 +185,7 @@ const Register = () => {
             <p className="text-md font-semibold mt-2 pt-1 mb-0">
               Already Have an account?
               <Link
-               to='/login'
+                to="/login"
                 className="text-green-600 hover:text-green-700 focus:text-green-700 transition duration-200 ease-in-out"
               >
                 Login

@@ -1,8 +1,9 @@
-export const setAuthToken = user => {
-    const currentUser = {
-        email: user?.email,
-    }
-    fetch(`${process.env.REACT_APP_API_URL}/user/${user?.email}`,{
+export const setAuthToken = currentUser => {
+    // const currentUser = {
+    //     email: user?.email,
+    //     userType:user?.userType,
+    // }
+    fetch(`${process.env.REACT_APP_API_URL}/user/${currentUser?.email}`,{
         method:"PUT",
         headers:{
             'content-type':'application/json',

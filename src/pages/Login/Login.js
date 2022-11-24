@@ -8,7 +8,8 @@ import Spinner from "../../components/Spinner/Spinner";
 import { setAuthToken } from "../../api/auth";
 
 const Login = () => {
-  const { user, signInUser, googleSignIn,loading,setLoading } = useContext(AuthContext);
+  const { user, signInUser, googleSignIn, loading, setLoading } =
+    useContext(AuthContext);
   useTitle("Login");
   const {
     register,
@@ -20,38 +21,41 @@ const Login = () => {
 
   const handleLogin = (data) => {
     console.log(data);
-    signInUser(data.email,data.password)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      Swal.fire("User Signed in succefully")
-      setAuthToken(user);
-      navigate('/')
-      
-    })
-    .catch(err => {
-      console.log(err.message);
-      setLoading(false)
-    })
+    signInUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire("User Signed in succefully");
+        setAuthToken(user);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoading(false);
+      });
   };
 
   const handleGoogleLogin = () => {
-    googleSignIn().then((result) => {
+    googleSignIn()
+      .then((result) => {
         console.log(result);
-        Swal.fire("User logged in successfully")
-        setAuthToken(result.user)
-        navigate('/')
+        const user = result.user;
+        const currentUser = {
+          email: user?.email,
+          userType: "buyer",
+        };
+        setAuthToken(currentUser);
+        Swal.fire("User logged in successfully");
+        navigate("/");
       })
-      .catch(error => {
-          console.log(error);
-          setLoading(false)
-      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   if (loading) {
-    return (
-      <Spinner></Spinner>
-    );
+    return <Spinner></Spinner>;
   }
 
   return (

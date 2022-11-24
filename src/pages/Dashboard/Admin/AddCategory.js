@@ -1,24 +1,62 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import SmallSpinner from "../../../components/SmallSpinner/SmallSpinner";
+import Spinner from "../../../components/Spinner/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useTitle } from "../../../hooks/useTitle";
 
 const AddCategory = () => {
   useTitle("Add Category");
-  const { createUser, updateUserProfile, loading, googleSignIn } =
+  const {user, loading,setLoading } =
     useContext(AuthContext);
 
   const {
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, },
     handleSubmit,
   } = useForm();
 
+  const imgHostKey = process.env.REACT_APP_imgbb_key;
+
   const handleAddCategory = (data) => {
-    console.log(data);
+    if(loading) {
+        <Spinner></Spinner>
+      }
+    const image = data.img[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    fetch(`https://api.imgbb.com/1/upload?key=${imgHostKey}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        console.log(imgData.data.url);
+        const category = {
+          categoryName: data.categoryName,
+          categoryImage: imgData.data.url,
+        };
+        console.log(category);
+        fetch('http://localhost:5000/categories',{
+          method:"POST",
+          headers:{
+            'content-type':'application/json',
+            // authorization: `bearer ${localStorage.getItem('accessToken')}`
+          },
+          body:JSON.stringify(category)
+        })
+        .then(res => res.json())
+        .then(result => {
+          console.log(result);
+          Swal.fire("Product added successfully")
+          // toast.success("Inserted doctor information")
+        })
+      });
   };
 
-  const imgHostKey = process.env.REACT_APP_imgbb_key;
   return (
     <form
       className="space-y-4 w-96 mx-auto mt-20"
@@ -58,9 +96,11 @@ const AddCategory = () => {
         )}
       </div>
 
-      <button type="submit" className="btn btn-neutral w-full">
+      {
+        loading ? <Spinner></Spinner> : <button type="submit" className="btn btn-neutral w-full">
         Add Category
       </button>
+      }
     </form>
   );
 };
