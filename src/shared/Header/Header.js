@@ -6,18 +6,18 @@ import logo from "../../assets/logo.png";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Header = () => {
-  const { user,signOutUser } = useContext(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-const handleSignOut = () => {
-  signOutUser()
-  .then(() => {
-    Swal.fire("User Logged Out successfully");
-    navigate("/");
-  })
-  .catch(err => {
-    console.log(err);
-  })
-}
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        Swal.fire("User Logged Out successfully");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1 items-center gap-2">
@@ -32,9 +32,15 @@ const handleSignOut = () => {
       <div className="flex-none gap-2">
         {/* <PrimaryButton>Register</PrimaryButton> */}
         {user ? (
-          <Link onClick={handleSignOut}>
-            <button className="btn btn-outline btn-primary">Logout</button>
-          </Link>
+          <>
+            <Link to='/dashboard'>
+              <button className="btn btn-outline btn-primary">Dashboard</button>
+            </Link>
+
+            <Link onClick={handleSignOut}>
+              <button className="btn btn-outline btn-primary">Logout</button>
+            </Link>
+          </>
         ) : (
           <>
             <Link to="login">
@@ -45,7 +51,6 @@ const handleSignOut = () => {
             </Link>
           </>
         )}
-
       </div>
     </div>
   );

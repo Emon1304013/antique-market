@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import logo from "../../assets/google-icon.svg";
+// import logo from "../../assets/google-icon.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner/Spinner";
