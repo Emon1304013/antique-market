@@ -5,8 +5,10 @@ import logo from "../../assets/google-icon.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner/Spinner";
+import { useTitle } from "../../hooks/useTitle";
 
 const Register = () => {
+    useTitle('Register')
     const {createUser,updateUserProfile,loading,googleSignIn} = useContext(AuthContext)
   const {
     register,
