@@ -37,6 +37,16 @@ const DashboardLayout = () => {
                 className={({ isActive }) =>
                   isActive ? activeStyle : undefined
                 }
+                to="/dashboard/addcategory"
+              >
+                Add Category
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? activeStyle : undefined
+                }
                 to="/dashboard/addproduct"
               >
                 Add a product
