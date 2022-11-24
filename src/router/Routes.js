@@ -4,14 +4,18 @@ import MainLayout from "../layouts/MainLayout";
 import AddCategory from "../pages/Dashboard/Admin/AddCategory";
 import AddProduct from "../pages/Dashboard/Seller/AddProduct";
 import MyOrders from "../pages/Dashboard/User/MyOrders";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import SingleCategory from "../pages/SingleCategory/SingleCategory";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
         path:'/',
         element:<MainLayout></MainLayout>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/',
@@ -25,10 +29,15 @@ export const router = createBrowserRouter([
                 path:'/login',
                 element:<Login></Login>
             },
+            {
+                path:'/category/:id',
+                element:<PrivateRoute><SingleCategory></SingleCategory></PrivateRoute>
+            }
         ]
     },{
         path:'/dashboard',
         element:<DashboardLayout></DashboardLayout>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/dashboard',

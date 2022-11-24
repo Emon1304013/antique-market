@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 // import { addProduct } from "../../../api/Product/AddProduct";
@@ -8,7 +9,7 @@ import { useTitle } from "../../../hooks/useTitle";
 
 const AddProduct = () => {
   useTitle("Add Product");
-  const { createUser, updateUserProfile, loading, googleSignIn } =
+  const {user,loading,} =
     useContext(AuthContext);
 
   const {
@@ -16,6 +17,20 @@ const AddProduct = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const {data: categories = [],isLoading} = useQuery({
+    queryKey:['specialty'],
+    queryFn: async() => {
+        const res = await fetch('http://localhost:5000/categories');
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+  })
+  console.log(categories);
+  if(isLoading){
+    return <Spinner></Spinner>
+  }
 
   const imgHostKey = process.env.REACT_APP_imgbb_key;
 
@@ -33,14 +48,17 @@ const AddProduct = () => {
         console.log(imgData.data.url);
         const product = {
           productName: data.productName,
-          price: data.price,
-          category:data.category,
+          originalPrice: data.originalPrice,
+          resellPrice: data.resellPrice,
+          categoryId:data.category,
           condition: data.condition,
           productImage: imgData.data.url,
           number: data.mobile,
           location: data.location,
           description: data.description,
           purchaseYear: data.purchaseYear,
+          posted: new Date(),
+          sellerName:user?.name,
         };
         console.log(product);
         fetch('http://localhost:5000/products',{
@@ -92,15 +110,33 @@ const AddProduct = () => {
           <span className="label-text">Price</span>
         </label>
         <input
-          {...register("price", { required: true })}
+          {...register("originalPrice", { required: true })}
           type="text"
-          placeholder="Price"
+          placeholder="Original Price"
           className="input input-bordered w-full"
         />
 
-        {errors.price?.type === "required" && (
+        {errors.originalPrice?.type === "required" && (
           <p role="alert" className="text-red-600 font-bold pt-2">
-            Price is required
+           Original Price is required
+          </p>
+        )}
+      </div>
+
+      <div className="form-control w-full">
+        <label className="label">
+          <span className="label-text">Price</span>
+        </label>
+        <input
+          {...register("resellPrice", { required: true })}
+          type="text"
+          placeholder="Re-Sell Price"
+          className="input input-bordered w-full"
+        />
+
+        {errors.resellPrice?.type === "required" && (
+          <p role="alert" className="text-red-600 font-bold pt-2">
+            Resell Price is required
           </p>
         )}
       </div>
@@ -113,12 +149,12 @@ const AddProduct = () => {
           {...register("category", { required: true })}
           className="select select-bordered w-full"
         >
-          <option disabled defaultValue>
-            Product category
-          </option>
-          <option value="dining">Dining</option>
-          <option value="bedroom">Bedroom</option>
-          <option value="study">Study</option>
+          {
+            categories?.map(category => 
+            <option
+            key={category._id}
+            value={category._id}>{category.categoryName}</option>)
+          }
         </select>
 
         {errors.category?.type === "required" && (

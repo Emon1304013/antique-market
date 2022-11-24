@@ -51,7 +51,13 @@ const AddCategory = () => {
         .then(res => res.json())
         .then(result => {
           console.log(result);
-          Swal.fire("Product added successfully")
+          if(result.success){
+
+              Swal.fire("Category added successfully")
+          }
+          else{
+            Swal.fire(result.message)
+          }
           // toast.success("Inserted doctor information")
         })
       });
