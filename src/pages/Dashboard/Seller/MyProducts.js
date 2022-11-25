@@ -1,11 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import { useTitle } from "../../../hooks/useTitle";
+import SingleSellerProduct from "./SingleSellerProduct";
 
 const MyProducts = () => {
-    const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  useTitle("My Products");
+
+  const {
+    data: sellerProducts = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["sellerProducts"],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:5000/products/seller/${user?.email}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            authorization: `bearer ${localStorage.getItem("antique-token")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
+  console.log(sellerProducts);
   return (
     <div>
-      <h2 className="text-2xl text-center font-bold text-secondary">
+      <h2 className="text-2xl text-center font-bold text-secondary mb-4">
         My Products
       </h2>
 
@@ -14,30 +40,22 @@ const MyProducts = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Action</th>
+              <th>Advertise</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
-            <tr className="active">
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
+            {sellerProducts?.map((product, i) => (
+              <SingleSellerProduct
+              key={product.key}
+              i={i}
+              product={product}
+              >
+
+              </SingleSellerProduct>
+            ))}
           </tbody>
         </table>
       </div>

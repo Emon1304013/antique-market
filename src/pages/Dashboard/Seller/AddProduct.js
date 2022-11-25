@@ -59,6 +59,7 @@ const AddProduct = () => {
           purchaseYear: data.purchaseYear,
           posted: new Date(),
           sellerName:user?.name,
+          sellerEmail:user?.email,
         };
         console.log(product);
         fetch('http://localhost:5000/products',{
