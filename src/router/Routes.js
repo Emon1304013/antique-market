@@ -10,6 +10,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import SingleCategory from "../pages/SingleCategory/SingleCategory";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
         ]
     },{
         path:'/dashboard',
-        element:<DashboardLayout></DashboardLayout>,
+        element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/addcategory',
-                element:<AddCategory></AddCategory>
+                element:<AdminRoute><AddCategory></AddCategory></AdminRoute>
             },
         ]
     }

@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
+import useAdmin from "../hooks/useAdmin";
+import useSeller from "../hooks/useSeller";
 import Header from "../shared/Header/Header";
 
 const DashboardLayout = () => {
+  const { user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
+  const [isSeller] = useSeller(user?.email);
+  console.log(user, isAdmin);
   let activeStyle = {
     backgroundColor: "green",
   };
@@ -32,57 +39,66 @@ const DashboardLayout = () => {
                 My Orders
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/addcategory"
-              >
-                Add Category
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/addproduct"
-              >
-                Add a product
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/myproducts"
-              >
-                My Products
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/allsellers"
-              >
-                All Sellers
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/allbuyers"
-              >
-                All Buyers
-              </NavLink>
-            </li>
-            
+            {isAdmin && (
+              <>
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    to="/dashboard/addcategory"
+                  >
+                    Add Category
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    to="/dashboard/allsellers"
+                  >
+                    All Sellers
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    to="/dashboard/allbuyers"
+                  >
+                    All Buyers
+                  </NavLink>
+                </li>
+              </>
+            )}
+
+            {isSeller && (
+              <>
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    to="/dashboard/addproduct"
+                  >
+                    Add a product
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    to="/dashboard/myproducts"
+                  >
+                    My Products
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -17,6 +17,9 @@ const AddCategory = () => {
     formState: { errors, },
     handleSubmit,
   } = useForm();
+  if(loading) {
+    return <Spinner></Spinner>
+  }
 
   const imgHostKey = process.env.REACT_APP_imgbb_key;
 
