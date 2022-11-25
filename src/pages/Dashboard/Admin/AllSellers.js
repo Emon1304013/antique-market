@@ -65,7 +65,7 @@ const AllSellers = () => {
               key={seller._id}
               >
                 <td>{i+1}</td>
-                <td>Demo Name</td>
+                <td>{seller.name}</td>
                 <td>{seller?.email}</td>
                 <td><button onClick={()=>handleDeleteSeller(seller?._id)} className="btn btn-error">DELETE</button></td>
               </tr>

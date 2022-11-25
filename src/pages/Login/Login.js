@@ -29,8 +29,12 @@ const Login = () => {
         setAuthToken(user);
         navigate("/");
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
         setLoading(false);
       });
   };
@@ -43,13 +47,14 @@ const Login = () => {
         const currentUser = {
           email: user?.email,
           userType: "buyer",
-        };
+          name: user?.displayName,
+      }
         setAuthToken(currentUser);
         Swal.fire("User logged in successfully");
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire(error)
         setLoading(false);
       });
   };

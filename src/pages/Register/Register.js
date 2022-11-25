@@ -10,7 +10,7 @@ import { setAuthToken } from "../../api/auth";
 
 const Register = () => {
   useTitle("Register");
-  const { createUser, updateUserProfile, loading, googleSignIn,setLoading } =
+  const { createUser, updateUserProfile, loading, googleSignIn, setLoading } =
     useContext(AuthContext);
   const {
     register,
@@ -26,38 +26,55 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        const currentUser = {
-          email: user?.email,
-          userType: data.userType,
-      }
-        // toast.success("User created Successfully")
-        Swal.fire("User created Successfully");
-        setAuthToken(currentUser);
 
         updateUserProfile(data.name)
-          .then(() => {})
-          .catch((err) => console.log(err.message));
-          navigate('/')
+          .then(() => {
+            const currentUser = {
+              email: user?.email,
+              userType: data.userType,
+              name: user?.displayName,
+            };
+            // toast.success("User created Successfully")
+            Swal.fire("User created Successfully");
+            setAuthToken(currentUser);
+            setLoading(false);
+          })
+          .catch((error) =>
+            Swal.fire({
+              icon: "error",
+              title: error.message,
+              showCloseButton: true,
+            })
+          );
+        navigate("/");
       })
-      .catch((err) => {
-        console.log(err.message);
-        setLoading(false)
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: error.message,
+          showCloseButton: true,
+        });
+        setLoading(false);
       });
   };
 
   const handleGoogleSignin = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result);
         const user = result.user;
         const currentUser = {
-                email: user?.email,
-                userType:"buyer",
-            }
+          email: user?.email,
+          userType: "buyer",
+          name: user?.displayName,
+        };
         setAuthToken(currentUser);
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: error.message,
+          showCloseButton: true,
+        });
       });
   };
 
