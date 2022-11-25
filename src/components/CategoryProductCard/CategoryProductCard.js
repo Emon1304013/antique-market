@@ -13,11 +13,11 @@ const CategoryProductCard = ({ product }) => {
     location,
     number,
     productName,
-    price,
+    originalPrice,
+    resellPrice,
     productImage,
     purchaseYear,
   } = product;
-
   const currentYear = new Date().getFullYear();
   console.log(currentYear);
   console.log(typeof currentYear, typeof purchaseYear);
@@ -31,10 +31,10 @@ const CategoryProductCard = ({ product }) => {
         <h2 className="card-title">{productName}</h2>
         <div className="card-actions justify-between">
           <p className="text-lg">
-            Original Price: <span className="font-bold">{price}BDT</span>
+            Original Price: <span className="font-bold">{originalPrice}BDT</span>
           </p>
           <p className="text-lg">
-            Re sell Price: <span className="font-bold">{price - 100}BDT</span>
+            Resale Price: <span className="font-bold">{resellPrice}BDT</span>
           </p>
         </div>
 

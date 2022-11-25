@@ -33,6 +33,7 @@ const Header = () => {
         {/* <PrimaryButton>Register</PrimaryButton> */}
         {user ? (
           <>
+          <p>{user?.email}</p>
             <Link to='/dashboard'>
               <button className="btn btn-outline btn-primary">Dashboard</button>
             </Link>

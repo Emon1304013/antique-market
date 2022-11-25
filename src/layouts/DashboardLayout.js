@@ -1,19 +1,23 @@
 import React, { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import Spinner from "../components/Spinner/Spinner";
 import { AuthContext } from "../contexts/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
 import useSeller from "../hooks/useSeller";
 import Header from "../shared/Header/Header";
 
 const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
-  const [isAdmin] = useAdmin(user?.email);
-  const [isSeller] = useSeller(user?.email);
+  const { user,loading } = useContext(AuthContext);
+  const [isAdmin,isAdminLoading] = useAdmin(user?.email);
+  const [isSeller,isSellerLoading] = useSeller(user?.email);
   console.log(user, isAdmin);
   let activeStyle = {
     backgroundColor: "green",
   };
 
+  if(loading || isAdminLoading || isSellerLoading){
+    <Spinner></Spinner>
+  }
   return (
     <div>
       <Header></Header>

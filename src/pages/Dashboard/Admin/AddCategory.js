@@ -17,9 +17,6 @@ const AddCategory = () => {
     formState: { errors, },
     handleSubmit,
   } = useForm();
-  if(loading) {
-    return <Spinner></Spinner>
-  }
 
   const imgHostKey = process.env.REACT_APP_imgbb_key;
 
@@ -39,12 +36,12 @@ const AddCategory = () => {
       .then((imgData) => {
         console.log(imgData.data.url);
         const category = {
-          categoryName: data.categoryName,
+          categoryName: data.categoryName.toUpperCase(),
           categoryImage: imgData.data.url,
         };
         console.log(category);
         fetch('http://localhost:5000/categories',{
-          method:"POST",
+          method:"PUT",
           headers:{
             'content-type':'application/json',
             // authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -59,13 +56,15 @@ const AddCategory = () => {
               Swal.fire("Category added successfully")
           }
           else{
-            Swal.fire(result.message)
+            Swal.fire("Something went wrong")
           }
-          // toast.success("Inserted doctor information")
         })
       });
   };
 
+  if(loading) {
+    return <Spinner></Spinner>
+  }
   return (
     <form
       className="space-y-4 w-96 mx-auto mt-20"

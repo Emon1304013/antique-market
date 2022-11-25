@@ -11,6 +11,9 @@ import Register from "../pages/Register/Register";
 import SingleCategory from "../pages/SingleCategory/SingleCategory";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import MyProducts from "../pages/Dashboard/Seller/MyProducts";
+import AllSellers from "../pages/Dashboard/Admin/AllSellers";
+import AllBuyers from "../pages/Dashboard/Admin/AllBuyers";
 
 export const router = createBrowserRouter([
     {
@@ -49,9 +52,21 @@ export const router = createBrowserRouter([
                 element:<AddProduct></AddProduct>
             },
             {
-                path:'/dashboard/addcategory',
-                element:<AdminRoute><AddCategory></AddCategory></AdminRoute>
+                path:'/dashboard/myproducts',
+                element:<MyProducts></MyProducts>
             },
+            {
+                path:'/dashboard/addcategory',
+                element:<AddCategory></AddCategory>
+            },
+            {
+                path:'/dashboard/allsellers',
+                element:<AllSellers></AllSellers>
+            },
+            {
+                path:'/dashboard/allbuyers',
+                element:<AllBuyers></AllBuyers>
+            }
         ]
     }
 ])
