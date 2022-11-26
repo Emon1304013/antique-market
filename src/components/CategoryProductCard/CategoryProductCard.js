@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import BookingModal from "../BookingModal/BookingModal";
@@ -7,6 +8,7 @@ import PrimaryButton from "../PrimaryButton/PrimaryButton";
 const CategoryProductCard = ({ product }) => {
 
     const {user} = useContext(AuthContext)
+    const [isSellerVerified,setIsSellerVerified] = useState(false);
   const {
     categoryId,
     _id,
@@ -17,7 +19,26 @@ const CategoryProductCard = ({ product }) => {
     resellPrice,
     productImage,
     purchaseYear,
+    sellerEmail
   } = product;
+
+  const {data: seller={}} = useQuery({
+    queryKey:['seller'],
+    queryFn:async() => {
+      const res = await fetch(`http://localhost:5000/user/${product?.sellerEmail}`,{
+        headers:{
+          'content-type':'application/json',
+          authorization:`bearer ${localStorage.getItem('antique-token')}`,
+        }
+      })
+      const data = await res.json();
+      if(data.isVerified){
+        setIsSellerVerified(true);
+      }
+      return data
+    }
+  })
+
   const currentYear = new Date().getFullYear();
   console.log(currentYear);
   console.log(typeof currentYear, typeof purchaseYear);
@@ -51,6 +72,9 @@ const CategoryProductCard = ({ product }) => {
           </p>
           <p className="text-lg">Posted : {location}</p>
         </div>
+        {
+          isSellerVerified ? <>verified</>:<>Not verified</>
+        }
         <label htmlFor="booking-modal" className="btn btn-secondary text-white">
           Book Now
         </label>
