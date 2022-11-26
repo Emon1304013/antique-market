@@ -60,6 +60,7 @@ const AddProduct = () => {
           posted: new Date(),
           sellerName:user?.name,
           sellerEmail:user?.email,
+          isAdvertised:false,
         };
         console.log(product);
         fetch('http://localhost:5000/products',{

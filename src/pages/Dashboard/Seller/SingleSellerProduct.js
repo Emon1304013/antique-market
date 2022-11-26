@@ -1,9 +1,13 @@
 import React from "react";
 
 const SingleSellerProduct = ({ product, i }) => {
-  const { productName, resellPrice } = product;
+  const { productName, resellPrice,_id } = product;
   const setStatus = (e) => {
     console.log(product,e.target.value);
+  }
+
+  const handleAdvertise = id =>{
+    console.log('Product ID',id);
   }
   return (
 
@@ -20,7 +24,7 @@ const SingleSellerProduct = ({ product, i }) => {
           </select>
         </td>
         <td>
-        <button className="btn btn-success text-white">Advertise</button>
+        <button onClick={() => handleAdvertise(_id)} className="btn btn-success text-white">Advertise</button>
         </td>
       </tr>
   );

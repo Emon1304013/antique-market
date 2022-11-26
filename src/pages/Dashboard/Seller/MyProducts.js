@@ -6,7 +6,7 @@ import SingleSellerProduct from "./SingleSellerProduct";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
-  useTitle("My Products");
+  useTitle("Seller Products");
 
   const {
     data: sellerProducts = [],
@@ -49,7 +49,7 @@ const MyProducts = () => {
           <tbody>
             {sellerProducts?.map((product, i) => (
               <SingleSellerProduct
-              key={product.key}
+              key={product._id}
               i={i}
               product={product}
               >
