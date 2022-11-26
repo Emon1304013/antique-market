@@ -140,8 +140,8 @@ const Register = () => {
                   <option disabled defaultValue>
                     User Type
                   </option>
-                  <option value="buyer">Buyer</option>
-                  <option value="Seller">seller</option>
+                  <option value="Buyer">Buyer</option>
+                  <option value="Seller">Seller</option>
                 </select>
 
                 {errors.userType?.type === "required" && (
