@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import AdvertisedProductCard from '../../../components/AdvertisedProductCard/AdvertisedProductCard';
 import Spinner from '../../../components/Spinner/Spinner';
 
 const AdvertisedProducts = () => {
@@ -22,9 +23,23 @@ const AdvertisedProducts = () => {
     }
     console.log(advertisedProducts);
     return (
-        <div>
-            <h2>Advertised Products</h2>
+        <>
+        {
+            advertisedProducts && <div className='mb-12'>
+            <h2 className='text-center font-bold text-3xl text-secondary my-8'>Advertised Products</h2>
+
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
+                {
+                    advertisedProducts?.map(product => 
+                    <AdvertisedProductCard
+                    key={product._id}
+                    product={product}>
+                    </AdvertisedProductCard>)
+                }
+            </div>
         </div>
+        }
+        </>
     );
 };
 
