@@ -5,7 +5,6 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const BookingModal = ({ product, setBooking }) => {
   const { user } = useContext(AuthContext);
-  const [bookedProduct,setBookedProduct] = useState('');
   console.log(user);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,43 +16,31 @@ const BookingModal = ({ product, setBooking }) => {
     const phone = form.phone.value;
     const location = form.location.value;
 
-    const product = {
+    const bookedProduct = {
       userName,
       userEmail,
       productName,
       price,
       phone,
       location,
+      img:product.productImage,
+      productId:product._id,
     }
-    setBookedProduct(product);
     fetch(`${process.env.REACT_APP_API_URL}/bookings`,{
       method:"POST",
         headers:{
           'content-type':'application/json',
           authorization:`bearer ${localStorage.getItem('antique-token')}`,
         },
-        body:JSON.stringify(product)
-    }).then(res => res.json()).then(data => console.log(data))
+        body:JSON.stringify(bookedProduct)
+    }).then(res => res.json()).then(data => {
+      
+      console.log(data)
+      Swal.fire("Booking Confirmed. Thanks!")
+    })
     setBooking(null);
   };
 
-  // const {data} = useQuery({
-  //   queryKey:['bookedProduct'],
-  //   queryFn:async() => {
-  //     const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings`,{
-  //       method:"POST",
-  //       headers:{
-  //         'content-type':'application/json',
-  //         authorization:`bearer ${localStorage.getItem('antique-token')}`,
-  //       },
-  //       body:JSON.stringify(bookedProduct)
-  //     })
-  //     const data = await res.json();
-  //     console.log(data);
-  //     Swal.fire("Booking Confirmed. Thanks!");
-  //     return data
-  //   }
-  // })
   return (
     <div>
       {/* The button to open modal */}
