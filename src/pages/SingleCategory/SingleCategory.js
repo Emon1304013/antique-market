@@ -1,17 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import BookingModal from "../../components/BookingModal/BookingModal";
 import CategoryProductCard from "../../components/CategoryProductCard/CategoryProductCard";
 import Spinner from "../../components/Spinner/Spinner";
 
 const SingleCategory = () => {
-  console.log(new Date());
-  console.log(
-    new Date().getDate(),
-    new Date().getMonth(),
-    new Date().getFullYear()
-  );
+
   const categoryId = useParams().id;
+  const [booking,setBooking] = useState(null);
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["specialty"],
     queryFn: async () => {
@@ -34,7 +31,9 @@ const SingleCategory = () => {
           product={product}
           ></CategoryProductCard>
         ))}
+        
       </div>
+
     </div>
   );
 };

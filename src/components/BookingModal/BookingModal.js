@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-const BookingModal = ({product}) => {
+const BookingModal = ({product,setBooking}) => {
   const { user } = useContext(AuthContext);
   console.log(user);
   const handleSubmit = () => {
     Swal.fire("Information Recieved. Thanks!")
+    setBooking(null);
   }
   return (
     <div>

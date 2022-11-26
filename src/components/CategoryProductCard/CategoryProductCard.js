@@ -9,6 +9,7 @@ const CategoryProductCard = ({ product }) => {
 
     const {user} = useContext(AuthContext)
     const [isSellerVerified,setIsSellerVerified] = useState(false);
+    const [booking,setBooking] = useState(null);
   const {
     categoryId,
     _id,
@@ -75,11 +76,15 @@ const CategoryProductCard = ({ product }) => {
         {
           isSellerVerified ? <>verified</>:<>Not verified</>
         }
-        <label htmlFor="booking-modal" className="btn btn-secondary text-white">
+        <label onClick={() => setBooking(product)} htmlFor="booking-modal" className="btn btn-secondary text-white">
           Book Now
         </label>
       </div>
-      <BookingModal product = {product}></BookingModal>
+      {
+        booking && <BookingModal 
+        setBooking = {setBooking}
+        product = {product}></BookingModal>
+      }
     </div>
   );
 };
