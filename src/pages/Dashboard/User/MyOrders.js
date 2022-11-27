@@ -21,6 +21,7 @@ const MyOrders = () => {
         },
       });
       const data = await res.json();
+      console.log(data);
       return data;
     },
   });
@@ -33,7 +34,7 @@ const MyOrders = () => {
       {(myBookings.length>0) ? <>
           <h2 className="text-3xl text-center font-bold mb-4">My Bookings</h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {myBookings?.map((myBooking) => (
               <div
                 key={myBooking._id}
@@ -46,7 +47,9 @@ const MyOrders = () => {
                   <h2 className="card-title">{myBooking.productName}</h2>
                   <p>Price: {myBooking.price}</p>
                   <div className="card-actions justify-end">
-                    <Link to={`/dashboard/payment/${myBooking._id}`}><button className="btn btn-primary">Pay Now</button></Link>
+                    {
+                      myBooking.paid ? <b className="text-green-500 justify-end font-bold text-2xl ">PAID</b> : <Link to={`/dashboard/payment/${myBooking._id}`}><button className="btn btn-primary">Pay Now</button></Link>
+                    }
                   </div>
                 </div>
               </div>
