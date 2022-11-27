@@ -52,6 +52,7 @@ const MyProducts = () => {
               key={product._id}
               i={i}
               product={product}
+              refetch={refetch}
               >
 
               </SingleSellerProduct>

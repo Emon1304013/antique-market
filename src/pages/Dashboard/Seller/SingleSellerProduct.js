@@ -1,6 +1,7 @@
 import React from "react";
+import Swal from "sweetalert2";
 
-const SingleSellerProduct = ({ product, i }) => {
+const SingleSellerProduct = ({ product, i,refetch }) => {
   const { productName, resellPrice, _id, isAdvertised } = product;
   console.log(product);
   const setStatus = (e) => {
@@ -9,6 +10,24 @@ const SingleSellerProduct = ({ product, i }) => {
 
   const handleAdvertise = (id) => {
     console.log("Product ID", id);
+    fetch(`${process.env.REACT_APP_API_URL}/products/advertise/${id}`,{
+      method:"PATCH",
+      headers:{
+        'content-type':'application/json',
+        authorization:`bearer ${localStorage.getItem('antique-token')}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      if(data.modifiedCount>0){
+        Swal.fire("Product advertised successfully");
+        refetch()
+      }
+      else{
+        Swal.fire("Something Went wrong")
+      }
+    })
   };
   return (
     <tr>
