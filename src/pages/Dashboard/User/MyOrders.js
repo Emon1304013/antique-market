@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
+import Spinner from "../../../components/Spinner/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const MyOrders = () => {
@@ -23,10 +24,13 @@ const MyOrders = () => {
       return data;
     },
   });
+  if(isLoading){
+    <Spinner></Spinner>
+  }
   console.log(myBookings);
   return (
     <div>
-      {myBookings.length>0 ? <>
+      {(myBookings.length>0) ? <>
           <h2 className="text-3xl text-center font-bold mb-4">My Bookings</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-3">
@@ -42,7 +46,7 @@ const MyOrders = () => {
                   <h2 className="card-title">{myBooking.productName}</h2>
                   <p>Price: {myBooking.price}</p>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Pay Now</button>
+                    <Link to={`/dashboard/payment/${myBooking._id}`}><button className="btn btn-primary">Pay Now</button></Link>
                   </div>
                 </div>
               </div>

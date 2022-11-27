@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 // import { addProduct } from "../../../api/Product/AddProduct";
 import Spinner from "../../../components/Spinner/Spinner";
@@ -17,6 +18,8 @@ const AddProduct = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const navigate = useNavigate();
 
   const {data: categories = [],isLoading} = useQuery({
     queryKey:['specialty'],
@@ -75,6 +78,8 @@ const AddProduct = () => {
         .then(result => {
           console.log(result);
           Swal.fire("Product added successfully")
+          navigate('/dashboard/myproducts')
+
           // toast.success("Inserted doctor information")
           console.log(JSON.stringify(product));
         })
