@@ -84,7 +84,9 @@ const AllSellers = () => {
                 <td>{i+1}</td>
                 <td>{seller.name}</td>
                 <td>{seller?.email}</td>
-                <td><button onClick={()=>handleDeleteSeller(seller?._id)} className="btn btn-error text-white">DELETE</button></td>
+                <td>
+                  <button onClick={()=>handleDeleteSeller(seller?._id)} className="btn btn-error text-white">DELETE</button>
+                  </td>
                 <td>{seller?.isVerified? <p className="text-green-500 font-bold text-xl">Verified</p> :<button onClick={() => {handleVerifySeller(seller)}} className="btn btn-active btn-secondary text-white">VERIFY</button>}</td>
               </tr>
             ))}

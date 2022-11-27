@@ -1,5 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import SmallSpinner from "../../../components/SmallSpinner/SmallSpinner";
 
 const CheckoutForm = ({ bookingData }) => {
@@ -11,6 +13,7 @@ const CheckoutForm = ({ bookingData }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { price, userName, userEmail, productId, _id } = bookingData;
+  const navigate = useNavigate();
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch(`${process.env.REACT_APP_API_URL}/create-payment-intent`, {
@@ -88,6 +91,12 @@ const CheckoutForm = ({ bookingData }) => {
           if (data.insertedId) {
             setSuccess("Congrats! your payment completed");
             setTransactionId(paymentIntent.id);
+            Swal.fire({
+              icon: "success",
+              title: "Congrats! your payment completed",
+              showCloseButton: true,
+            })
+            navigate("/dashboard")
           }
         });
     }

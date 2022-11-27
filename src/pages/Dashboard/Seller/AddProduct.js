@@ -64,6 +64,7 @@ const AddProduct = () => {
           sellerName:user?.name,
           sellerEmail:user?.email,
           isAdvertised:false,
+          isPaid:false,
         };
         console.log(product);
         fetch('http://localhost:5000/products',{

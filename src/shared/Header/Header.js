@@ -30,11 +30,14 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex-none gap-2">
+        <Link to="/blog">
+          <button className="btn btn-outline btn-primary">Blog</button>
+        </Link>
         {/* <PrimaryButton>Register</PrimaryButton> */}
         {user ? (
           <>
-          <p>{user?.email}</p>
-            <Link to='/dashboard'>
+            <p>{user?.email}</p>
+            <Link to="/dashboard">
               <button className="btn btn-outline btn-primary">Dashboard</button>
             </Link>
 

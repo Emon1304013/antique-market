@@ -30,7 +30,7 @@ const MyOrders = () => {
   }
   console.log(myBookings);
   return (
-    <div>
+    <div className="mb-8">
       {(myBookings.length>0) ? <>
           <h2 className="text-3xl text-center font-bold mb-4">My Bookings</h2>
 

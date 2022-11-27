@@ -33,7 +33,7 @@ const Login = () => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Something went wrong!',
+          text: 'Wrong credential! Please try again',
         })
         setLoading(false);
       });
