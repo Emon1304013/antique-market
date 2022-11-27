@@ -35,17 +35,13 @@ const SingleSellerProduct = ({ product, i,refetch }) => {
       <td>{productName}</td>
       <td>{resellPrice}</td>
       <td>
-        <select
-          onChange={(e) => setStatus(e)}
-          className="select select-bordered w-2/3 max-w-xs"
-        >
-          <option value="available">Available</option>
-          <option value="sold">Sold</option>
-        </select>
+        {
+          product?.isPaid ? <p className="text-red-500 font-bold">SOLD</p> : <p className="text-green-500 font-bold">AVAILABLE</p>
+        }
       </td>
       <td>
         {isAdvertised ? (
-          ""
+          "ADVERTISED"
         ) : (
           <button
             onClick={() => handleAdvertise(_id)}

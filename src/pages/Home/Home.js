@@ -3,7 +3,7 @@ import Hero from '../../components/Hero/Hero';
 import { useTitle } from '../../hooks/useTitle';
 import AdvertisedProducts from './AdvertisedProducts/AdvertisedProducts';
 import Categories from './Categories/Categories';
-// import HowItWorks from './HowItWorks/HowItWorks';
+import HowItWorks from './HowItWorks/HowItWorks';
 
 const Home = () => {
     useTitle('Home')
@@ -12,7 +12,7 @@ const Home = () => {
             <Hero></Hero>
             <AdvertisedProducts></AdvertisedProducts>
             <Categories></Categories>
-            {/* <HowItWorks color="red"></HowItWorks> */}
+            <HowItWorks></HowItWorks>
         </div>
     );
 };
