@@ -8,7 +8,7 @@ const AppAdvertiseSection = () => {
         <div className="flex justify-center xl:w-1/2">
           <img
             className="h-80 w-80 sm:w-[28rem] sm:h-[28rem] flex-shrink-0 object-cover rounded-full"
-            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+            src="https://media.istockphoto.com/id/1339594011/photo/over-shoulder-view-asian-chinese-man-using-fitness-tracker-mobile-app-connecting-to-fitness.jpg?s=612x612&w=0&k=20&c=qrjknUWRhFrDmd5wuinX4uJnYBoTuf2gXbC_sx1LtsQ="
             alt=""
           />
         </div>
