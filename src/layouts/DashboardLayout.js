@@ -12,7 +12,7 @@ const DashboardLayout = () => {
   const [isSeller,isSellerLoading] = useSeller(user?.email);
   console.log(user, isAdmin);
   let activeStyle = {
-    backgroundColor: "green",
+    textDecoration: "underline",
   };
 
   if(loading || isAdminLoading || isSellerLoading){
@@ -46,7 +46,7 @@ const DashboardLayout = () => {
                 className={({ isActive }) =>
                   isActive ? activeStyle : undefined
                 }
-                to="/dashboard"
+                to="/dashboard/wishlist"
               >
                 My WishList
               </NavLink>
@@ -82,6 +82,16 @@ const DashboardLayout = () => {
                     to="/dashboard/allbuyers"
                   >
                     All Buyers
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    to="/dashboard/reportedItems"
+                  >
+                    Reported Items
                   </NavLink>
                 </li>
               </>

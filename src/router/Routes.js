@@ -16,6 +16,8 @@ import AllSellers from "../pages/Dashboard/Admin/AllSellers";
 import AllBuyers from "../pages/Dashboard/Admin/AllBuyers";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import Blog from "../pages/Blog/Blog";
+import MyWishlist from "../pages/Dashboard/User/MyWishlist";
+import ReportedItems from "../pages/Dashboard/Admin/ReportedItems";
 
 export const router = createBrowserRouter([
     {
@@ -66,6 +68,10 @@ export const router = createBrowserRouter([
                 element:<MyProducts></MyProducts>
             },
             {
+                path:'/dashboard/wishlist',
+                element:<MyWishlist></MyWishlist>
+            },
+            {
                 path:'/dashboard/addcategory',
                 element:<AddCategory></AddCategory>
             },
@@ -78,10 +84,15 @@ export const router = createBrowserRouter([
                 element:<AllBuyers></AllBuyers>
             },
             {
+                path:'/dashboard/reportedItems',
+                element:<ReportedItems></ReportedItems>
+            },
+            {
                 path:'/dashboard/payment/:id',
                 element:<Payment></Payment>,
                 loader:({params}) => fetch(`http://localhost:5000/bookings/payment/${params.id}`)
-            }
+            },
+            
         ]
     }
 ])
