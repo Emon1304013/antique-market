@@ -30,6 +30,9 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex-none gap-2">
+      <Link to="/home">
+          <button className="btn btn-outline btn-primary">Home</button>
+        </Link>
         <Link to="/blog">
           <button className="btn btn-outline btn-primary">Blog</button>
         </Link>

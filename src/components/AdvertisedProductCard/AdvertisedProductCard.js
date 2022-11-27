@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/AuthProvider";
+import BookingModal from "../BookingModal/BookingModal";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 
 const AdvertisedProductCard = ({ product }) => {
+  const {user} = useContext(AuthContext);
+  const [booking,setBooking] = useState(null);
   const {
     _id,
     resellPrice,
@@ -11,6 +15,7 @@ const AdvertisedProductCard = ({ product }) => {
     sellerEmail,
     condition,
   } = product;
+  
 
 //   const month = posted.getMonth() + 1; //months from 1-12
 //   const day = posted.getDate();
@@ -41,8 +46,15 @@ const AdvertisedProductCard = ({ product }) => {
         </p>
         <div className="card-actions justify-end">
           {/* <div className="badge badge-outline"></div> */}
-          <PrimaryButton>Book Now</PrimaryButton>
+          <label onClick={() => setBooking(product)} htmlFor="booking-modal" className="btn btn-secondary text-white">
+          Book Now
+        </label>
         </div>
+        {
+        booking && <BookingModal 
+        setBooking = {setBooking}
+        product = {product}></BookingModal>
+      }
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
 
@@ -23,21 +24,22 @@ const BookingModal = ({ product, setBooking }) => {
       price,
       phone,
       location,
-      img:product.productImage,
-      productId:product._id,
-    }
-    fetch(`${process.env.REACT_APP_API_URL}/bookings`,{
-      method:"POST",
-        headers:{
-          'content-type':'application/json',
-          authorization:`bearer ${localStorage.getItem('antique-token')}`,
-        },
-        body:JSON.stringify(bookedProduct)
-    }).then(res => res.json()).then(data => {
-      
-      console.log(data)
-      Swal.fire("Booking Confirmed. Thanks!")
+      img: product.productImage,
+      productId: product._id,
+    };
+    fetch(`${process.env.REACT_APP_API_URL}/bookings`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("antique-token")}`,
+      },
+      body: JSON.stringify(bookedProduct),
     })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        Swal.fire("Booking Confirmed. Thanks!");
+      });
     setBooking(null);
   };
 
@@ -121,12 +123,20 @@ const BookingModal = ({ product, setBooking }) => {
               />
             </div>
             <div className="modal-action">
-              <button onClick={()=>setBooking(null)} className="btn">
-                Cancel
-              </button>
-              <button type="submit" className="btn">
-                Submit
-              </button>
+              {user ? (
+                <>
+                  <button onClick={() => setBooking(null)} className="btn">
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn btn-secondary">
+                    Submit
+                  </button>
+                </>
+              ) : (
+                <Link to='/login'><button type="submit" className="btn btn-secondary">
+                Please Login to Book
+              </button></Link>
+              )}
             </div>
           </form>
         </div>
