@@ -2,29 +2,28 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
 import SmallSpinner from "../../../components/SmallSpinner/SmallSpinner";
 
-const CheckoutForm = ({bookingData}) => {
+const CheckoutForm = ({ bookingData }) => {
   const [cardError, setCardError] = useState("");
   const [success, setSuccess] = useState("");
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
-  const [clientSecret,setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const {price,
-    userName,userEmail,productId} = bookingData;
+  const { price, userName, userEmail, productId, _id } = bookingData;
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch(`${process.env.REACT_APP_API_URL}/create-payment-intent`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            authorization: `bearer ${localStorage.getItem('antique-token')}`
-        },
-        body: JSON.stringify({ price }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("antique-token")}`,
+      },
+      body: JSON.stringify({ price }),
     })
-        .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret));
-}, [price]);
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, [price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,35 +49,54 @@ const CheckoutForm = ({bookingData}) => {
     } else {
       setCardError("");
     }
-setSuccess('');
-setProcessing(true)
-    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    name: userName,
-                    email: userEmail,
-                },
-            },
+    setSuccess("");
+    setProcessing(true);
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: userName,
+            email: userEmail,
+          },
         },
-    );
-    if(confirmError){
-        setCardError(confirmError.message);
-        return;
+      });
+    if (confirmError) {
+      setCardError(confirmError.message);
+      return;
     }
-    if(paymentIntent.status === "succeeded"){
-        setSuccess('Congratulations payment received')
-        setTransactionId(paymentIntent.id)
+    if (paymentIntent.status === "succeeded") {
+      const payment = {
+        price,
+        transactionId: paymentIntent.id,
+        email: userEmail,
+        bookingId: _id,
+        productId,
+      };
+
+      fetch("http://localhost:5000/payments", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("antique-token")}`,
+        },
+        body: JSON.stringify(payment),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.insertedId) {
+            setSuccess("Congrats! your payment completed");
+            setTransactionId(paymentIntent.id);
+          }
+        });
     }
     console.log(paymentIntent);
     setProcessing(false);
-     
   };
 
-  if(processing){
-    <SmallSpinner></SmallSpinner>
+  if (processing) {
+    <SmallSpinner></SmallSpinner>;
   }
   return (
     <>
@@ -109,12 +127,15 @@ setProcessing(true)
         </button>
       </form>
       <p className="text-red-600 font-semibold text-center">{cardError}</p>
-      {
-        success && <div>
-            <p className="text-green-800">{success}</p>
-            <p>Your Transaction id: <span className="font-bold"> {transactionId}</span></p>
+      {success && (
+        <div>
+          <p className="text-green-800">{success}</p>
+          <p>
+            Your Transaction id:{" "}
+            <span className="font-bold"> {transactionId}</span>
+          </p>
         </div>
-      }
+      )}
     </>
   );
 };
