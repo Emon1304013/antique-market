@@ -61,7 +61,7 @@ const DashboardLayout = () => {
                 className={({ isActive }) =>
                   isActive ? activeStyle : undefined
                 }
-                to="/dashboard"
+                to="/dashboard/myorders"
               >
                 My Orders
               </NavLink>

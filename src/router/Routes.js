@@ -18,6 +18,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import Blog from "../pages/Blog/Blog";
 import MyWishlist from "../pages/Dashboard/User/MyWishlist";
 import ReportedItems from "../pages/Dashboard/Admin/ReportedItems";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
         children:[
             {
                 path:'/dashboard',
+                element:<Dashboard></Dashboard>
+            },
+            {
+                path:'/dashboard/myorders',
                 element:<MyOrders></MyOrders>
             },
             {
