@@ -21,14 +21,12 @@ const MyOrders = () => {
         },
       });
       const data = await res.json();
-      console.log(data);
       return data;
     },
   });
   if(isLoading){
     <Spinner></Spinner>
   }
-  console.log(myBookings);
   return (
     <div className="mb-8">
       {(myBookings.length>0) ? <>

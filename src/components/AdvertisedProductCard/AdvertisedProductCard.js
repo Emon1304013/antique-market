@@ -17,7 +17,7 @@ const AdvertisedProductCard = ({ product }) => {
   } = product;
   
   return (
-    <div className="card w-full mx-4 lg:mx-0 bg-base-100 shadow-xl">
+    <div className="card w-full mx-auto bg-base-100 shadow-xl">
       <figure>
         <img
           src={productImage}

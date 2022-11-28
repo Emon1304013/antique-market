@@ -112,18 +112,7 @@ const Header2 = () => {
                     </Link>
                   </li>
                   <li>
-                    <div className="avatar">
-                      <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                        {user ? (
-                          <img src={user?.displayUrl} alt="" />
-                        ) : (
-                          <img
-                            src="https://placeimg.com/192/192/people"
-                            alt=""
-                          />
-                        )}
-                      </div>
-                    </div>
+                    <p className="bg-gray-100 p-2 rounded font-bold">{user?.email}</p>
                   </li>
                 </>
               ) : (

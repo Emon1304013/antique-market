@@ -22,7 +22,7 @@ const AdvertisedProducts = () => {
         return <Spinner></Spinner>
     }
     return (
-        <>
+        <div className='mx-8 lg:mx-0'>
         {
             (advertisedProducts?.length > 0) && <div className='mb-12'>
             <h2 className='text-center font-bold text-3xl text-secondary my-8'>Advertised Products</h2>
@@ -38,7 +38,7 @@ const AdvertisedProducts = () => {
             </div>
         </div>
         }
-        </>
+        </div>
     );
 };
 

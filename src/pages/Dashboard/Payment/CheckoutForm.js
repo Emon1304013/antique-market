@@ -47,7 +47,6 @@ const CheckoutForm = ({ bookingData }) => {
     });
 
     if (error) {
-      console.log(error);
       setCardError(error.message);
     } else {
       setCardError("");
@@ -87,7 +86,6 @@ const CheckoutForm = ({ bookingData }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.insertedId) {
             setSuccess("Congrats! your payment completed");
             setTransactionId(paymentIntent.id);
@@ -100,7 +98,6 @@ const CheckoutForm = ({ bookingData }) => {
           }
         });
     }
-    console.log(paymentIntent);
     setProcessing(false);
   };
 

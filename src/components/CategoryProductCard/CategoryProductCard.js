@@ -11,16 +11,13 @@ const CategoryProductCard = ({ product }) => {
   const [isSellerVerified, setIsSellerVerified] = useState(false);
   const [booking, setBooking] = useState(null);
   const {
-    categoryId,
-    _id,
     location,
-    number,
     productName,
     originalPrice,
     resellPrice,
     productImage,
     purchaseYear,
-    sellerEmail,
+    posted
   } = product;
 
   const { data: seller = {} } = useQuery({
@@ -59,9 +56,6 @@ const CategoryProductCard = ({ product }) => {
 }
 
   const currentYear = new Date().getFullYear();
-  console.log(currentYear);
-  console.log(typeof currentYear, typeof purchaseYear);
-  console.log(parseInt(currentYear));
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>
@@ -90,7 +84,7 @@ const CategoryProductCard = ({ product }) => {
 
         <div className="card-actions justify-between">
           <p className="text-lg">
-            Seller Name: <span className="font-bold">Admin</span>
+            Seller: <span className="font-bold">{seller.name}</span>
           </p>
           <p className="text-lg">Location: {location}</p>
         </div>
@@ -99,7 +93,7 @@ const CategoryProductCard = ({ product }) => {
           <p className="text-lg">
             Used for {parseInt(currentYear) - parseInt(purchaseYear)} years
           </p>
-          <p className="text-lg">Posted : {location}</p>
+          <p className="text-lg">Posted : {posted.slice(0,10)}</p>
         </div>
         <div className="flex justify-between">
           <button

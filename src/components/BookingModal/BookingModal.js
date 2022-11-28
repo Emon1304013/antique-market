@@ -6,7 +6,6 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const BookingModal = ({ product, setBooking }) => {
   const { user } = useContext(AuthContext);
-  console.log(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -37,7 +36,6 @@ const BookingModal = ({ product, setBooking }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         Swal.fire("Booking Confirmed. Thanks!");
       });
     setBooking(null);
@@ -45,9 +43,7 @@ const BookingModal = ({ product, setBooking }) => {
 
   return (
     <div>
-      {/* The button to open modal */}
 
-      {/* Put this part before </body> tag */}
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
