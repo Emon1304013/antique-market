@@ -10,7 +10,6 @@ const DashboardLayout = () => {
   const { user, loading } = useContext(AuthContext);
   const [isAdmin, isAdminLoading] = useAdmin(user?.email);
   const [isSeller, isSellerLoading] = useSeller(user?.email);
-  console.log(user, isAdmin);
   let activeStyle = {
     textDecoration: "underline",
   };

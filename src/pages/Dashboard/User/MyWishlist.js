@@ -12,6 +12,7 @@ const MyWishlist = () => {
         queryFn:async()=> {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/wishtlist/${user?.email}`,{
                 headers:{
+                    'content-type':'application/json',
                     authorization: `bearer ${localStorage.getItem('antique-token')}`
                 }
             })

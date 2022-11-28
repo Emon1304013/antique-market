@@ -6,10 +6,14 @@ const useSeller = email => {
 
     useEffect(()=> {
         if(email){
-            fetch(`${process.env.REACT_APP_API_URL}/users/seller/${email}`)
+            fetch(`${process.env.REACT_APP_API_URL}/users/seller/${email}`,{
+                headers:{
+                    'content-type':'application/json',
+                    authorization:`bearer ${localStorage.getItem('antique-token')}`
+                }
+            })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setIsSeller(data.isSeller)
                 setIsSellerLoading(false)
             })

@@ -11,7 +11,12 @@ const SingleCategory = () => {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["specialty"],
     queryFn: async () => {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/categories/${categoryId}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/categories/${categoryId}`,{
+        headers:{
+          'content-type':'application/json',
+          authorization: `bearer ${localStorage.getItem('antique-token')}`
+        },
+      });
       const data = await res.json();
       console.log(data);
       return data;

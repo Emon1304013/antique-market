@@ -13,7 +13,6 @@ export const setAuthToken = currentUser => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
         localStorage.setItem('antique-token',data.token)
     })
 }

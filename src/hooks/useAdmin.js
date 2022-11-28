@@ -6,10 +6,14 @@ const useAdmin = email => {
 
     useEffect(()=> {
         if(email){
-            fetch(`${process.env.REACT_APP_API_URL}/users/admin/${email}`)
+            fetch(`${process.env.REACT_APP_API_URL}/users/admin/${email}`,{
+                headers:{
+                    'content-type':'application/json',
+                    authorization:`bearer ${localStorage.getItem('antique-token')}`
+                }
+            })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setIsAdmin(data.isAdmin)
                 setIsAdminLoading(false)
             })

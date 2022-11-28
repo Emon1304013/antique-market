@@ -44,7 +44,7 @@ const AddCategory = () => {
           method:"PUT",
           headers:{
             'content-type':'application/json',
-            // authorization: `bearer ${localStorage.getItem('accessToken')}`
+            authorization: `bearer ${localStorage.getItem('antique-token')}`
           },
           body:JSON.stringify(category)
         })

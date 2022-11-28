@@ -6,8 +6,8 @@ const Dashboard = () => {
     return (
         <div className='flex justify-center'>
             <div className='mt-20 text-center'>
-                <h2 className='text-2xl'>Welcome, <span className='font-bold'> {user?.displayName}</span></h2>
-                <p className='text-xl'>This is your Dashboard</p>
+                <h2 className='text-2xl'>Hello, <span className='font-bold'> {user?.displayName}</span></h2>
+                <p className='text-xl'>Welcome your Dashboard</p>
             </div>
         </div>
     );

@@ -21,21 +21,20 @@ const AllSellers = () => {
         },
       });
       const data = await res.json();
-      console.log(data);
       return data;
     },
   });
 
   const handleDeleteSeller = async id => {
     
-    const res = fetch(`${process.env.REACT_APP_API_URL}/users/seller/${id}`,{
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/users/seller/${id}`,{
         method:'DELETE',
         headers:{
             'content-type':'application/json',
             authorization:`bearer ${localStorage.getItem('antique-token')}`
         }
     })
-    const data = await res.json;
+    const data = await res.json();
     if(data.acknowledged){
         Swal.fire("Seller Deleted Successfully");
         refetch();
@@ -57,8 +56,6 @@ const AllSellers = () => {
         refetch();
     })
   }
-  console.log(isVerified);
-  console.log(sellers);
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 text-center text-secondary uppercase">

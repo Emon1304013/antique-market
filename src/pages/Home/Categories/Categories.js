@@ -13,7 +13,6 @@ const Categories = () => {
     axios.get(`${process.env.REACT_APP_API_URL}/categories`)
     .then((data) => {
       // handle success
-      console.log(data);
       setCategories(data.data)
     })
     .catch((error) => {

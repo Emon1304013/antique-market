@@ -24,13 +24,16 @@ const AddProduct = () => {
   const {data: categories = [],isLoading} = useQuery({
     queryKey:['specialty'],
     queryFn: async() => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/categories`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/categories`,{
+          headers:{
+            'content-type':'application/json',
+            authorization:`beare ${localStorage.getItem('antique-token')}`
+          }
+        });
         const data = await res.json();
-        console.log(data);
         return data;
     }
   })
-  console.log(categories);
   if(isLoading){
     return <Spinner></Spinner>
   }
