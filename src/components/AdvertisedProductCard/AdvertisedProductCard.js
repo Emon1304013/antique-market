@@ -14,6 +14,8 @@ const AdvertisedProductCard = ({ product }) => {
     posted,
     sellerEmail,
     condition,
+    isPaid,
+    isAdvertised,
   } = product;
   
   return (
