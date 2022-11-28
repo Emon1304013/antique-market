@@ -32,7 +32,6 @@ const CategoryProductCard = ({ product,refetch }) => {
         }
       );
       const data = await res.json()
-      console.log(data);
       refetch();
       if (data?.isVerified) {
         setIsSellerVerified(true);
@@ -62,7 +61,7 @@ if(isLoading && loading){
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>
-        <img src={productImage} alt="Shoes" />
+        <img src={productImage} className="h-[300px]" alt="Shoes" />
       </figure>
       <div className="card-body">
         <div className="flex justify-between">

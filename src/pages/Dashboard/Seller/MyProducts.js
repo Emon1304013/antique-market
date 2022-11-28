@@ -6,7 +6,7 @@ import { useTitle } from "../../../hooks/useTitle";
 import SingleSellerProduct from "./SingleSellerProduct";
 
 const MyProducts = () => {
-  const { user } = useContext(AuthContext);
+  const { user,loading } = useContext(AuthContext);
   useTitle("Seller Products");
 
   const {
@@ -29,7 +29,7 @@ const MyProducts = () => {
       return data;
     },
   });
-  if(isLoading){
+  if(isLoading && loading){
     <Spinner></Spinner>
   }
   return (
@@ -57,6 +57,7 @@ const MyProducts = () => {
               i={i}
               product={product}
               refetch={refetch}
+              isLoading={isLoading}
               >
 
               </SingleSellerProduct>

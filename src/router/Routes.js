@@ -19,6 +19,7 @@ import Blog from "../pages/Blog/Blog";
 import MyWishlist from "../pages/Dashboard/User/MyWishlist";
 import ReportedItems from "../pages/Dashboard/Admin/ReportedItems";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import SellerRoute from "./SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -66,11 +67,11 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/addproduct',
-                element:<AddProduct></AddProduct>
+                element:<SellerRoute><AddProduct></AddProduct></SellerRoute>
             },
             {
                 path:'/dashboard/myproducts',
-                element:<MyProducts></MyProducts>
+                element:<SellerRoute><MyProducts></MyProducts></SellerRoute>
             },
             {
                 path:'/dashboard/wishlist',
@@ -78,19 +79,19 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/addcategory',
-                element:<AddCategory></AddCategory>
+                element:<AdminRoute><AddCategory></AddCategory></AdminRoute>
             },
             {
                 path:'/dashboard/allsellers',
-                element:<AllSellers></AllSellers>
+                element:<AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
             {
                 path:'/dashboard/allbuyers',
-                element:<AllBuyers></AllBuyers>
+                element:<AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             },
             {
                 path:'/dashboard/reportedItems',
-                element:<ReportedItems></ReportedItems>
+                element:<AdminRoute><ReportedItems></ReportedItems></AdminRoute>
             },
             {
                 path:'/dashboard/payment/:id',

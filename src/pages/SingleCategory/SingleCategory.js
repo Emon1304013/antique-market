@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import BookingModal from "../../components/BookingModal/BookingModal";
 import CategoryProductCard from "../../components/CategoryProductCard/CategoryProductCard";
 import Spinner from "../../components/Spinner/Spinner";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const SingleCategory = () => {
-
+const {loading} = useContext(AuthContext)
   const categoryId = useParams().id;
   const { data: products = [], isLoading,refetch } = useQuery({
     queryKey: ["specialty"],
@@ -21,7 +22,7 @@ const SingleCategory = () => {
       return data;
     },
   });
-  if (isLoading) {
+  if (isLoading && loading) {
     return <Spinner></Spinner>;
   }
   return (

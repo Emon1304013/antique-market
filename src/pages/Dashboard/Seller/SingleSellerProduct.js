@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
+import Spinner from "../../../components/Spinner/Spinner";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
-const SingleSellerProduct = ({ product, i, refetch }) => {
+const SingleSellerProduct = ({ product, i, refetch,isLoading }) => {
+  const {loading} = useContext(AuthContext); 
   const { productName, resellPrice, _id, isAdvertised, isPaid } = product;
 
   const handleAdvertise = (id) => {
     console.log("Product ID", id);
     fetch(`${process.env.REACT_APP_API_URL}/products/advertise/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem("antique-token")}`,
+        'content-type':'application/json',
+        authorization: `bearer ${localStorage.getItem("antique-token")}`
       },
     })
-      .then((res) => res.json())
+      .then((res) =>res.json())
       .then((data) => {
-        if (data.modifiedCount > 0) {
+        if (data) {
           Swal.fire("Product advertised successfully");
           refetch();
         } else {
@@ -43,6 +46,10 @@ const SingleSellerProduct = ({ product, i, refetch }) => {
     .catch(err=>{
         Swal.fire("Something Went wrong");
     })
+  }
+
+  if(loading && isLoading){
+    <Spinner></Spinner>
   }
   return (
     <tr>

@@ -53,12 +53,15 @@ const AllSellers = () => {
         }
     }).then(res => res.json()).then(data => {
         console.log(data)
+        setIsVerified(true)
         refetch();
     })
   }
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 text-center text-secondary uppercase">
+      {
+        sellers?.length > 0 ? <>
+        <h2 className="text-2xl font-bold mb-4 text-center text-secondary uppercase">
         All Sellers
       </h2>
 
@@ -90,6 +93,13 @@ const AllSellers = () => {
           </tbody>
         </table>
       </div>
+      </>:
+      <>
+      <p className="text-center text-xl font-bold text-secondary">
+      Currently the site has no sellers
+      </p>
+      </>
+      }
     </div>
   );
 };
