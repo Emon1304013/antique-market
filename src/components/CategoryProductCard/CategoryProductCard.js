@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import BookingModal from "../BookingModal/BookingModal";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import tick from "../../assets/check.png";
 import Swal from "sweetalert2";
-const CategoryProductCard = ({ product }) => {
-  const { user } = useContext(AuthContext);
+import Spinner from "../Spinner/Spinner";
+const CategoryProductCard = ({ product,refetch }) => {
+  const { loading } = useContext(AuthContext);
   const [isSellerVerified, setIsSellerVerified] = useState(false);
   const [booking, setBooking] = useState(null);
   const {
@@ -17,28 +16,31 @@ const CategoryProductCard = ({ product }) => {
     resellPrice,
     productImage,
     purchaseYear,
-    posted
+    posted,
+    sellerEmail,
   } = product;
 
-  const { data: seller = {} } = useQuery({
-    queryKey: ["seller"],
+  const { data: seller = {},isLoading } = useQuery({
+    queryKey: ["sellerName",sellerEmail],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/user/${product?.sellerEmail}`,
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/user/${product?.sellerEmail}`,
         {
           headers: {
-            "content-type": "application/json",
+            'content-type': 'application/json',
             authorization: `bearer ${localStorage.getItem("antique-token")}`,
           },
         }
       );
-      const data = await res.json();
-      if (data.isVerified) {
+      const data = await res.json()
+      console.log(data);
+      refetch();
+      if (data?.isVerified) {
         setIsSellerVerified(true);
       }
       return data;
-    },
+    }
   });
+
 
   const handleReportAdmin = id => {
     
@@ -50,11 +52,12 @@ const CategoryProductCard = ({ product }) => {
       authorization:`bearer ${localStorage.getItem('antique-token')}`
     },
   }).then(res => res.json()).then(data => {
-    console.log(data);
     Swal.fire("Item reported")
   })
 }
-
+if(isLoading && loading){
+  return <Spinner></Spinner>
+}
   const currentYear = new Date().getFullYear();
   return (
     <div className="card w-full bg-base-100 shadow-xl">
@@ -83,9 +86,11 @@ const CategoryProductCard = ({ product }) => {
         </div>
 
         <div className="card-actions justify-between">
-          <p className="text-lg">
-            Seller: <span className="font-bold">{seller.name}</span>
+          {
+            seller?.name && <p className="text-lg">
+            Seller: <span className="font-bold">{seller?.name }</span>
           </p>
+          }
           <p className="text-lg">Location: {location}</p>
         </div>
 
