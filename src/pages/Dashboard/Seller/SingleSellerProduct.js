@@ -3,10 +3,6 @@ import Swal from "sweetalert2";
 
 const SingleSellerProduct = ({ product, i,refetch }) => {
   const { productName, resellPrice, _id, isAdvertised } = product;
-  console.log(product);
-  const setStatus = (e) => {
-    console.log(product, e.target.value);
-  };
 
   const handleAdvertise = (id) => {
     console.log("Product ID", id);
@@ -19,7 +15,6 @@ const SingleSellerProduct = ({ product, i,refetch }) => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       if(data.modifiedCount>0){
         Swal.fire("Product advertised successfully");
         refetch()

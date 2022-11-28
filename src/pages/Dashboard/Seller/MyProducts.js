@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import Spinner from "../../../components/Spinner/Spinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useTitle } from "../../../hooks/useTitle";
 import SingleSellerProduct from "./SingleSellerProduct";
@@ -28,7 +29,9 @@ const MyProducts = () => {
       return data;
     },
   });
-  console.log(sellerProducts);
+  if(isLoading){
+    <Spinner></Spinner>
+  }
   return (
     <div>
       <h2 className="text-2xl text-center font-bold text-secondary mb-4">

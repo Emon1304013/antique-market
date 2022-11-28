@@ -64,14 +64,14 @@ const DashboardLayout = () => {
               >
                 My Orders
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 className={({ isActive }) =>
                   isActive ? activeStyle : undefined
                 }
                 to="/dashboard/wishlist"
               >
                 My WishList
-              </NavLink>
+              </NavLink> */}
             </li>
             {isAdmin && (
               <>

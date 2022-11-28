@@ -95,7 +95,7 @@ const AddProduct = () => {
   }
   return (
     <form
-      className="space-y-4 w-96 mx-auto"
+      className="space-y-4 w-80 lg:w-96 mx-auto"
       onSubmit={handleSubmit(handleAddProduct)}
     >
       <div className="form-control w-full">
