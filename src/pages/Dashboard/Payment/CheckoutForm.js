@@ -77,7 +77,7 @@ const CheckoutForm = ({ bookingData }) => {
         productId,
       };
 
-      fetch("http://localhost:5000/payments", {
+      fetch(`${process.env.REACT_APP_API_URL}/payments`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

@@ -14,7 +14,7 @@ const MyOrders = () => {
   } = useQuery({
     queryKey: ["myBookings"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/bookings/${user?.email}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings/${user?.email}`, {
         headers: {
           "content-type": "application/json",
           authorization: `bearer ${localStorage.getItem("antique-token")}`,

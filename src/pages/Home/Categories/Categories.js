@@ -10,7 +10,7 @@ const Categories = () => {
   const [categories,setCategories] = useState([])
 
   useEffect(()=> {
-    axios.get('http://localhost:5000/categories')
+    axios.get(`${process.env.REACT_APP_API_URL}/categories`)
     .then((data) => {
       // handle success
       console.log(data);
@@ -27,6 +27,7 @@ if(loading) {
 }
   return (
     <div>
+      <h2 className='text-center font-bold text-3xl text-secondary my-8'>Categories</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-4 lg:mx-0">
         {categories?.map(category => 
         <div 
@@ -46,7 +47,7 @@ if(loading) {
                   {category.categoryName}
                 </h4>
                 <div className="mt-4">
-                  <Link to={`/category/${category._id}`}><PrimaryButton>View Details</PrimaryButton></Link>
+                  <Link to={`/category/${category._id}`} ><PrimaryButton>View Details</PrimaryButton></Link>
                 </div>
               </div>
             </div>

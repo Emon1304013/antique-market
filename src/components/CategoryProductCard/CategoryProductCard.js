@@ -27,7 +27,7 @@ const CategoryProductCard = ({ product }) => {
     queryKey: ["seller"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/user/${product?.sellerEmail}`,
+        `${process.env.REACT_APP_API_URL}/user/${product?.sellerEmail}`,
         {
           headers: {
             "content-type": "application/json",
@@ -46,7 +46,7 @@ const CategoryProductCard = ({ product }) => {
   const handleReportAdmin = id => {
     
   // store reported items to the database 
-  fetch(`http://localhost:5000/reportedItem/${id}`,{
+  fetch(`${process.env.REACT_APP_API_URL}/reportedItem/${id}`,{
     method:"PATCH",
     headers:{
       'content-type':'application/json',

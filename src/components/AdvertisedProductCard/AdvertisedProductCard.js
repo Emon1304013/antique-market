@@ -16,10 +16,8 @@ const AdvertisedProductCard = ({ product }) => {
     condition,
   } = product;
   
-  const date = posted;
-  console.log(date.slice(0,10));
   return (
-    <div className="card w-full bg-base-100 shadow-xl">
+    <div className="card w-full mx-4 lg:mx-0 bg-base-100 shadow-xl">
       <figure>
         <img
           src={productImage}
@@ -30,8 +28,8 @@ const AdvertisedProductCard = ({ product }) => {
       <div className="card-body">
         <h2 className="card-title">
           {productName}
-          <div className="badge badge-secondary">{posted}</div>
         </h2>
+          <div className="badge badge-secondary">{posted.slice(0,10)}</div>
         <p>
           Condition:{" "}
           <span className="font-semibold"> {condition.toUpperCase()}</span>

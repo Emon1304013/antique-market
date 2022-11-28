@@ -40,7 +40,7 @@ const AddCategory = () => {
           categoryImage: imgData.data.url,
         };
         console.log(category);
-        fetch('http://localhost:5000/categories',{
+        fetch(`${process.env.REACT_APP_API_URL}/categories`,{
           method:"PUT",
           headers:{
             'content-type':'application/json',

@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
             {
                 path:'/dashboard/payment/:id',
                 element:<Payment></Payment>,
-                loader:({params}) => fetch(`http://localhost:5000/bookings/payment/${params.id}`)
+                loader:({params}) => fetch(`${process.env.REACT_APP_API_URL}/bookings/payment/${params.id}`)
             },
             
         ]

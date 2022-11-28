@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 
 export const addProduct = product => {
     console.log(product);
-    fetch('http://localhost:5000/products',{
+    fetch(`${process.env.REACT_APP_API_URL}/products`,{
         method:"POST",
         // headers:{
         //   'content-type':'application/json',

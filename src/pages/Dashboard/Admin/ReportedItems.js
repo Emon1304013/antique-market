@@ -8,7 +8,7 @@ const ReportedItems = () => {
   const { data: reportedItems = [], isLoading,refetch } = useQuery({
     queryKey: ["reportedItems"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/reportedItems", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/reportedItems`, {
         headers: {
           "content-type": "application/json",
           authorization: `bearer ${localStorage.getItem("antique-token")}`,

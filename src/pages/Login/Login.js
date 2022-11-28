@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useTitle } from "../../hooks/useTitle";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -17,7 +17,10 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
 
   const handleLogin = (data) => {
     console.log(data);
@@ -25,9 +28,12 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const currentUser = {
+          email: user?.email,
+      }
         Swal.fire("User Signed in succefully");
-        setAuthToken(user);
-        navigate("/");
+        setAuthToken(currentUser);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         Swal.fire({
@@ -51,7 +57,7 @@ const Login = () => {
       }
         setAuthToken(currentUser);
         Swal.fire("User logged in successfully");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         Swal.fire(error)

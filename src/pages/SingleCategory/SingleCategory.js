@@ -8,11 +8,10 @@ import Spinner from "../../components/Spinner/Spinner";
 const SingleCategory = () => {
 
   const categoryId = useParams().id;
-  const [booking,setBooking] = useState(null);
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["specialty"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/categories/${categoryId}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/categories/${categoryId}`);
       const data = await res.json();
       console.log(data);
       return data;

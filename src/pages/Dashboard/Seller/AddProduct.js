@@ -24,7 +24,7 @@ const AddProduct = () => {
   const {data: categories = [],isLoading} = useQuery({
     queryKey:['specialty'],
     queryFn: async() => {
-        const res = await fetch('http://localhost:5000/categories');
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/categories`);
         const data = await res.json();
         console.log(data);
         return data;
@@ -67,7 +67,7 @@ const AddProduct = () => {
           isPaid:false,
         };
         console.log(product);
-        fetch('http://localhost:5000/products',{
+        fetch(`${process.env.REACT_APP_API_URL}/products`,{
           method:"POST",
           headers:{
             'content-type':'application/json',

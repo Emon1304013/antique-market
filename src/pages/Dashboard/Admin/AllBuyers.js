@@ -13,7 +13,7 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["buyers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/buyers", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/users/buyers`, {
         headers: {
           "content-type": "application/json",
           authorization: `bearer ${localStorage.getItem("antique-token")}`,
@@ -26,7 +26,7 @@ const AllBuyers = () => {
 
   const handleDeleteBuyer = async(id) => {
 
-    const res = fetch(`http://localhost:5000/users/buyer/${id}`,{
+    const res = fetch(`${process.env.REACT_APP_API_URL}/users/buyer/${id}`,{
         method:'DELETE',
         headers:{
             'content-type':'application/json',

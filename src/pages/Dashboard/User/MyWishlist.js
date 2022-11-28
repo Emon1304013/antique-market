@@ -10,7 +10,7 @@ const MyWishlist = () => {
     const {data: wishlists = [],isLoading} = useQuery({
         queryKey:['wishlist'],
         queryFn:async()=> {
-            const res = await fetch(`http://localhost:5000/wishtlist/${user?.email}`,{
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/wishtlist/${user?.email}`,{
                 headers:{
                     authorization: `bearer ${localStorage.getItem('antique-token')}`
                 }

@@ -16,7 +16,7 @@ const MyProducts = () => {
     queryKey: ["sellerProducts"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products/seller/${user?.email}`,
+        `${process.env.REACT_APP_API_URL}/products/seller/${user?.email}`,
         {
           headers: {
             "content-type": "application/json",

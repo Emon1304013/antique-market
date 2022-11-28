@@ -14,7 +14,7 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/sellers", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/users/sellers`, {
         headers: {
           "content-type": "application/json",
           authorization: `bearer ${localStorage.getItem("antique-token")}`,
@@ -28,7 +28,7 @@ const AllSellers = () => {
 
   const handleDeleteSeller = async id => {
     
-    const res = fetch(`http://localhost:5000/users/seller/${id}`,{
+    const res = fetch(`${process.env.REACT_APP_API_URL}/users/seller/${id}`,{
         method:'DELETE',
         headers:{
             'content-type':'application/json',
@@ -46,7 +46,7 @@ const AllSellers = () => {
   }
 
   const handleVerifySeller = (seller) =>{
-    fetch(`http://localhost:5000/seller/verify/${seller.email}`,{
+    fetch(`${process.env.REACT_APP_API_URL}/seller/verify/${seller.email}`,{
         method:'PATCH',
         headers:{
             'content-type':'application/json',
