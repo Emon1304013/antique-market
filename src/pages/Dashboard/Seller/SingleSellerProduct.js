@@ -23,6 +23,27 @@ const SingleSellerProduct = ({ product, i, refetch }) => {
         }
       });
   };
+
+  const handleDeleteProduct = id => {
+    fetch(`${process.env.REACT_APP_API_URL}/products/${id}`,{
+        method:"DELETE",
+        headers:{
+            'content-type':'application/json',
+            authorization:`bearer ${localStorage.getItem('antique-token')}`,
+        }
+    }).then(res => res.json()).then(data =>{
+        if(data.deletedCount>0){
+            Swal.fire("Item deleted");
+            refetch();
+        }
+        else{
+            Swal.fire("Deletion not possible right now. Please try again later! ")
+        }
+    })
+    .catch(err=>{
+        Swal.fire("Something Went wrong");
+    })
+  }
   return (
     <tr>
       <th>{i + 1}</th>
@@ -52,6 +73,14 @@ const SingleSellerProduct = ({ product, i, refetch }) => {
             )}
           </>
         )}
+      </td>
+      <td>
+        <button
+          onClick={() => handleDeleteProduct(_id)}
+          className="btn btn-error"
+        >
+          DELETE
+        </button>
       </td>
     </tr>
   );
