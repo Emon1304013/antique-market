@@ -27,7 +27,9 @@ const {loading} = useContext(AuthContext)
   }
   return (
     <div className="mt-8 min-h-screen">
-      <h2 className="text-3xl font-bold text-center mb-8 text-secondary">All Products</h2>
+      {
+        products.length>0? <>
+        <h2 className="text-3xl font-bold text-center mb-8 text-secondary">All Products</h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {products?.map((product) => (
           <CategoryProductCard
@@ -38,6 +40,12 @@ const {loading} = useContext(AuthContext)
         ))}
         
       </div>
+      </>
+      :
+      <>
+      <p className="text-center font-bold text-2xl text-secondary">No products available in this category</p>
+      </>
+      }
 
     </div>
   );
