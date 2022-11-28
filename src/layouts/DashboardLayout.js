@@ -3,18 +3,20 @@ import { NavLink, Outlet } from "react-router-dom";
 import Spinner from "../components/Spinner/Spinner";
 import { AuthContext } from "../contexts/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
+import useBuyer from "../hooks/useBuyer";
 import useSeller from "../hooks/useSeller";
 import Header from "../shared/Header/Header";
 
 const DashboardLayout = () => {
   const { user, loading } = useContext(AuthContext);
   const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+  const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
   const [isSeller, isSellerLoading] = useSeller(user?.email);
   let activeStyle = {
     textDecoration: "underline",
   };
 
-  if (loading || isAdminLoading || isSellerLoading) {
+  if (loading || isAdminLoading || isSellerLoading || isBuyerLoading) {
     <Spinner></Spinner>;
   }
   return (
@@ -55,24 +57,18 @@ const DashboardLayout = () => {
         <div className="drawer-side bg-gray-100  min-h-screen">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 text-base-content">
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/myorders"
-              >
-                My Orders
-              </NavLink>
-              {/* <NavLink
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                to="/dashboard/wishlist"
-              >
-                My WishList
-              </NavLink> */}
-            </li>
+            {isBuyer && (
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : undefined
+                  }
+                  to="/dashboard/myorders"
+                >
+                  My Orders
+                </NavLink>
+              </li>
+            )}
             {isAdmin && (
               <>
                 <li>

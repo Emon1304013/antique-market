@@ -20,6 +20,7 @@ import MyWishlist from "../pages/Dashboard/User/MyWishlist";
 import ReportedItems from "../pages/Dashboard/Admin/ReportedItems";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import SellerRoute from "./SellerRoute";
+import BuyerRoute from "./BuyerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -63,7 +64,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/myorders',
-                element:<MyOrders></MyOrders>
+                element:<BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             },
             {
                 path:'/dashboard/addproduct',

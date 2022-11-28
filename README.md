@@ -6,6 +6,7 @@ A second hand marketplace where user can purchase second hand antique products
 adminEmail: fahim@gmail.com <br>
 adminPassword: 123456
 
+If you face any error loading any data kindly try disabling the adblocker if you have any. 
 
 ## Feature & Functionalities
 <li>ANTIQUEMARKET is a marketplace to buy/sell second hand products.

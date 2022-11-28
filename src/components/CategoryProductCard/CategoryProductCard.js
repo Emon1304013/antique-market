@@ -5,9 +5,8 @@ import BookingModal from "../BookingModal/BookingModal";
 import tick from "../../assets/check.png";
 import Swal from "sweetalert2";
 import Spinner from "../Spinner/Spinner";
-const CategoryProductCard = ({ product,refetch }) => {
+const CategoryProductCard = ({ product,refetch,isSellerVerified, setIsSellerVerified}) => {
   const { loading } = useContext(AuthContext);
-  const [isSellerVerified, setIsSellerVerified] = useState(false);
   const [booking, setBooking] = useState(null);
   const {
     location,

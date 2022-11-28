@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import BookingModal from "../../components/BookingModal/BookingModal";
 import CategoryProductCard from "../../components/CategoryProductCard/CategoryProductCard";
 import Spinner from "../../components/Spinner/Spinner";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -9,8 +8,9 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const SingleCategory = () => {
 const {loading} = useContext(AuthContext)
   const categoryId = useParams().id;
+  const [isSellerVerified, setIsSellerVerified] = useState(false);
   const { data: products = [], isLoading,refetch } = useQuery({
-    queryKey: ["specialty"],
+    queryKey: ["prodcuts"],
     queryFn: async () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/categories/${categoryId}`,{
         headers:{
@@ -36,6 +36,8 @@ const {loading} = useContext(AuthContext)
           key={product._id}
           product={product}
           refetch={refetch}
+          isSellerVerified={isSellerVerified}
+          setIsSellerVerified={setIsSellerVerified}
           ></CategoryProductCard>
         ))}
         
