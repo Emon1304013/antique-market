@@ -16,13 +16,8 @@ const AdvertisedProductCard = ({ product }) => {
     condition,
   } = product;
   
-
-//   const month = posted.getMonth() + 1; //months from 1-12
-//   const day = posted.getDate();
-//   const year = posted.getFullYear();
-
-//   const newdate = year + "/" + month + "/" + day;
-//   console.log(newdate);
+  const date = posted;
+  console.log(date.slice(0,10));
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>
