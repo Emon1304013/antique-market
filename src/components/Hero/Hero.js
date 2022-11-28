@@ -19,11 +19,11 @@ const Hero = () => {
             <span className="text-[#49C97A]"> Buyers and Sellers </span>
           </h1>
           <p className="mt-6 mb-8 mx-4 text-lg sm:mb-12 font-serif ">
-            Make shopping SIMPLE, SECURE and FAST on the largest marketplace in
+            Make shopping SIMPLE, SECURE and FAST on the largest SECOND hand product marketplace in
             Bangladesh.
             <br className="hidden md:inline lg:hidden" />
             Discover what you need and sell all sorts of products in our simple
-            yet powerful platform
+            yet powerful platform.
           </p>
           <div>
             <PrimaryButton>View Categories</PrimaryButton>
