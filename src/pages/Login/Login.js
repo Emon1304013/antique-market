@@ -50,7 +50,7 @@ const Login = () => {
         const user = result.user;
         const currentUser = {
           email: user?.email,
-          userType: "buyer",
+          userType: "Buyer",
           name: user?.displayName,
       }
         setAuthToken(currentUser);
