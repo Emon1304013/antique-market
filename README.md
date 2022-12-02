@@ -5,6 +5,7 @@ A second hand marketplace where user can purchase second hand antique products
 
 adminEmail: fahim@gmail.com <br>
 adminPassword: 123456
+server-side: https://github.com/Emon1304013/antique-market-server
 
 If you face any error loading any data kindly try disabling the adblocker if you have any. 
 
